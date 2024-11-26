@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cắt Ảnh</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        #image {
+            max-width: 100%;
+            max-height: 500px;
+        }
+
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .back-link {
+            margin-top: 30px;  /* Đẩy dòng Quay lại trang chủ xuống dưới */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cắt Ảnh</h1>
+    </header>
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            <label for="file">Chọn Ảnh:</label>
+            <input type="file" name="file" id="file" required><br><br>
+
+            <div>
+                <img id="image" src="" alt="Ảnh để cắt">
+            </div>
+
+            <div>
+                <label for="left">Tọa độ trái (left):</label>
+                <input type="number" name="left" id="left" required><br><br>
+
+                <label for="upper">Tọa độ trên (upper):</label>
+                <input type="number" name="upper" id="upper" required><br><br>
+
+                <label for="right">Tọa độ phải (right):</label>
+                <input type="number" name="right" id="right" required><br><br>
+
+                <label for="lower">Tọa độ dưới (lower):</label>
+                <input type="number" name="lower" id="lower" required><br><br>
+            </div>
+
+            <button type="submit">Cắt Ảnh</button><br><br>
+        </form>
+
+        <div class="back-link">
+            <a href="/">Quay Lại Trang Chủ</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script>
+        var image = document.getElementById('image');
+        var fileInput = document.getElementById('file');
+        var cropper;
+    
+        // Lắng nghe sự kiện thay đổi file
+        fileInput.addEventListener('change', function (event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+    
+            reader.onload = function (e) {
+                image.src = e.target.result;
+                // Khởi tạo Cropper mới khi có ảnh mới
+                if (cropper) {
+                    cropper.destroy(); // Hủy bỏ cropper cũ nếu có
+                }
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,  // Tỉ lệ cắt 1:1, có thể thay đổi theo yêu cầu
+                    viewMode: 1,
+                    ready: function () {
+                        // Lấy tọa độ khi cropper được chuẩn bị sẵn sàng
+                        updateCoordinates();
+                    },
+                    cropend: function () {
+                        // Cập nhật tọa độ mỗi khi vùng cắt thay đổi
+                        updateCoordinates();
+                    }
+                });
+            };
+    
+            reader.readAsDataURL(file);
+        });
+    
+        // Hàm cập nhật các tọa độ vào các trường input
+        function updateCoordinates() {
+            var data = cropper.getData();  // Lấy dữ liệu tọa độ vùng cắt
+    
+            // Cập nhật các trường input với giá trị tọa độ
+            document.getElementById('left').value = Math.round(data.x);
+            document.getElementById('upper').value = Math.round(data.y);
+            document.getElementById('right').value = Math.round(data.x + data.width);
+            document.getElementById('lower').value = Math.round(data.y + data.height);
+        }
+    </script>
+    
+    
+</body>
+</html>

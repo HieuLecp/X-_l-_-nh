@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng Dụng Xử Lý Ảnh</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;  /* Giãn các mục trong danh sách */
+        }
+
+        li {
+            width: 100%;
+            text-align: center;
+        }
+
+        a {
+            display: block;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;  /* Tăng kích thước nút */
+            border-radius: 8px;
+            font-size: 18px;  /* Tăng cỡ chữ */
+            width: 250px;
+            margin: 0 auto;  /* Canh giữa */
+            text-align: center;
+            transition: background-color 0.3s ease;  /* Hiệu ứng chuyển màu */
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Chọn Chức Năng </h1>
+    </header>
+    <div class="container">
+        <ul>
+            <li><a href="/upload/merge">Ghép Ảnh</a></li>
+            <!-- <li><a href="/upload/sharpen">Làm Nét Ảnh</a></li> -->
+            <li><a href="/upload/bw">Chuyển Ảnh Thành Đen Trắng</a></li>
+            <li><a href="/upload/flip">Lật Ảnh</a></li>
+            <li><a href="/crop">Cắt Ảnh</a></li>
+            <li><a href="/upload/blur">Thêm Hiệu Ứng Mờ</a></li>
+            <!--<li><a href="/upload/text_overlay">Thêm Văn Bản Vào Ảnh</a></li>-->
+        </ul>
+    </div>
+    <footer>
+        <p>2024 © Ứng Dụng Xử Lý Ảnh</p>
+    </footer>
+</body>
+</html>
