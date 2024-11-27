@@ -45,7 +45,7 @@
             display: block;
         }
 
-        input[type="file"] {
+        input[type="file"], input[type="range"] {
             margin: 10px 0;
             padding: 10px;
             border-radius: 5px;
@@ -121,14 +121,16 @@
 
             {% if function_type == 'blur' %}
                 <label for="blur_level">Chọn Mức Độ Làm Mờ:</label>
-                <input type="range" name="blur_level" min="1" max="10" value="5" step="1">
+                <input type="range" name="blur_level" min="1" max="21" value="5" step="2">
                 <span id="blur_value">5</span><br><br>
+                <input type="hidden" name="blur_level_value" id="blur_level_value" value="5">
                 <script>
                     // Cập nhật giá trị khi người dùng thay đổi mức độ làm mờ
                     const blurRange = document.querySelector('[name="blur_level"]');
                     const blurValue = document.getElementById('blur_value');
                     blurRange.addEventListener('input', function() {
                         blurValue.textContent = blurRange.value;
+                        document.getElementById('blur_level_value').value = blurRange.value;  // Cập nhật giá trị
                     });
                 </script>
             {% endif %}
@@ -139,11 +141,6 @@
                 <option value="vertical">Lật Dọc (Top-Bottom)</option>
                 <option value="horizontal">Lật Ngang (Left-Right)</option>
             </select><br><br>
-            {% endif %}
-
-            {% if function_type == 'text_overlay' %}
-            <label for="text">Nhập Văn Bản:</label>
-            <input type="text" name="text" placeholder="Văn bản thêm vào ảnh"><br><br>
             {% endif %}
 
             <button type="submit">Xem Kết Quả</button><br><br>
